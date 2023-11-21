@@ -6,6 +6,7 @@ export const userSlice = createSlice({
     id: null,
     email: null,
     name: null,
+    uid: null,
     token: null,
   },
   reducers: {
@@ -13,17 +14,19 @@ export const userSlice = createSlice({
       state.id = action.payload.id;
       state.email = action.payload.email;
       state.name = action.payload.name;
+      state.uid = action.payload.uid;
       state.token = action.payload.token;
     },
     clearUser: (state) => {
       state.id = null;
       state.email = null;
       state.name = null;
+      state.uid = null;
       state.token = null;
     },
   },
 });
 
-export const { setUser, clearuser } = userSlice.actions;
+export const { setUser, clearUser } = userSlice.actions;
 
 export default userSlice.reducer;

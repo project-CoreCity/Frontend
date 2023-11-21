@@ -13,23 +13,33 @@ function SignIn() {
   const handleLogin = async () => {
     setError(null);
 
-    try {
-      const { token } = await signInWithGoogle();
-      const data = await authenticateUser(token);
+    const googleSignInResult = await signInWithGoogle();
 
-      dispatch(
-        setUser({
-          id: data.user.id,
-          email: data.user.email,
-          name: data.user.name,
-          token: token,
-        }),
-      );
+    if (googleSignInResult.error) {
+      setError(googleSignInResult.error);
 
-      navigate("/server-addresses");
-    } catch (error) {
-      setError("Login failed. Please try again.");
+      return;
     }
+
+    const authenticateResult = await authenticateUser(googleSignInResult.token);
+
+    if (authenticateResult.error) {
+      setError(authenticateResult.error);
+
+      return;
+    }
+
+    dispatch(
+      setUser({
+        id: authenticateResult.user.id,
+        email: authenticateResult.user.email,
+        name: authenticateResult.user.name,
+        uid: authenticateResult.user.uid,
+        token: googleSignInResult.token,
+      }),
+    );
+
+    navigate("/server-addresses");
   };
 
   return (

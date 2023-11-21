@@ -1,0 +1,68 @@
+import { useEffect, useState, useCallback } from "react";
+import { useSelector } from "react-redux";
+import { getServerAddressList } from "../../api/api";
+import ServerAddressForm from "./ServerAddressForm";
+
+function ServerAddressList() {
+  const userId = useSelector((state) => state.user.id);
+  const token = useSelector((state) => state.user.token);
+  const [serverAddresses, setServerAddresses] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [isLoaded, setIsLoaded] = useState(false);
+  const [error, setError] = useState(null);
+
+  const loadServerAddresses = useCallback(async () => {
+    if (!userId) {
+      setLoading(false);
+
+      return;
+    }
+
+    setLoading(true);
+
+    const result = await getServerAddressList(userId, token);
+
+    if (result.error) {
+      setError(result.error);
+      setLoading(false);
+      setIsLoaded(true);
+
+      return;
+    }
+
+    setServerAddresses(result);
+    setError(null);
+    setLoading(false);
+    setIsLoaded(true);
+  }, [userId, token]);
+
+  useEffect(() => {
+    loadServerAddresses();
+  }, [loadServerAddresses]);
+
+  if (loading) return <div>Loading...</div>;
+  if (error) return <div>Error: {error}</div>;
+
+  return (
+    <div>
+      <h1>Server List</h1>
+      {!loading && isLoaded && serverAddresses.length === 0 ? (
+        <div>No servers available. Add a new server address!</div>
+      ) : (
+        serverAddresses.map((item) => (
+          <div key={item.id}>
+            {item.address}
+            {item.isApproved ? (
+              <button onClick={() => {}}>Go to Dashboard</button>
+            ) : (
+              <span>Approval Pending...</span>
+            )}
+          </div>
+        ))
+      )}
+      <ServerAddressForm onAddAddress={loadServerAddresses} />
+    </div>
+  );
+}
+
+export default ServerAddressList;

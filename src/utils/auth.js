@@ -12,6 +12,7 @@ export async function signInWithGoogle() {
     return { user: result.user, token };
   } catch (error) {
     console.error(error);
-    throw error;
+
+    return { error: error.message || "Google sign-in failed" };
   }
 }

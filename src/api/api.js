@@ -6,22 +6,62 @@ const apiClient = axios.create({
 });
 
 export const authenticateUser = async (token) => {
-  const response = await apiClient.post(`/api/v1/users/auth-token`, {
-    token,
-  });
+  try {
+    const response = await apiClient.post(`/api/v1/users/auth-token`, {
+      token,
+    });
 
-  return response.data;
+    return response.data;
+  } catch (error) {
+    return { error: error.response?.data?.message || "Authentication failed" };
+  }
 };
 
-export const getServerAddressList = async (userId, token) => {
-  const response = await apiClient.get(
-    `/api/v1/users/${userId}/server-addresses`,
-    {
+export const getUserInformation = async (uid, token) => {
+  try {
+    const response = await apiClient.get(`/api/v1/users/${uid}`, {
       headers: {
         authorization: `Bearer ${token}`,
       },
-    },
-  );
+    });
 
-  return response.data;
+    return response.data;
+  } catch (error) {
+    return { error: error.response?.data?.message || "An error occurred" };
+  }
+};
+
+export const getServerAddressList = async (userId, token) => {
+  try {
+    const response = await apiClient.get(
+      `/api/v1/users/${userId}/server-addresses`,
+      {
+        headers: {
+          authorization: `Bearer ${token}`,
+        },
+      },
+    );
+
+    return response.data;
+  } catch (error) {
+    return { error: error.response?.data?.message || "An error occurred" };
+  }
+};
+
+export const addServerAddress = async (userId, token, serverAddress) => {
+  try {
+    const response = await apiClient.post(
+      `/api/v1/users/${userId}/server-addresses`,
+      { serverAddress },
+      {
+        headers: {
+          authorization: `Bearer ${token}`,
+        },
+      },
+    );
+
+    return response.data;
+  } catch (error) {
+    return { error: error.response?.data?.message || "An error occurred" };
+  }
 };
