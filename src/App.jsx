@@ -1,14 +1,14 @@
+import { useEffect } from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import Welcome from "./views/welcome/Welcome";
-import ServerList from "./views/server-list/ServerAddressList";
-import Error from "./views/Error";
-import "./App.css";
 import { getAuth } from "firebase/auth";
 import app from "./config/firebaseConfig";
 import { useDispatch } from "react-redux";
 import { clearUser, setUser } from "./features/user/userSlice";
-import { useEffect } from "react";
-import { getUserInformation } from "./api/api";
+import { getUserInformation } from "./apis/user";
+import Welcome from "./views/welcome/Welcome";
+import ServerList from "./views/server-list/ServerAddressList";
+import Dashboard from "./views/dashboard/dashboard";
+import Error from "./views/Error";
 
 function App() {
   const auth = getAuth(app);
@@ -50,6 +50,7 @@ function App() {
       <Routes>
         <Route path="/" element={<Welcome />} />
         <Route path="/server-addresses" element={<ServerList />} />
+        <Route path="/dashboard" element={<Dashboard />} />
         <Route path="/error" element={<Error />} />
       </Routes>
     </Router>
