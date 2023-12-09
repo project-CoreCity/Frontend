@@ -4,7 +4,7 @@ import app from "../config/firebaseConfig";
 const auth = getAuth(app);
 const provider = new GoogleAuthProvider();
 
-export async function signInWithGoogle() {
+export const signInWithGoogle = async () => {
   try {
     const result = await signInWithPopup(auth, provider);
     const token = await result.user.getIdToken();
@@ -15,4 +15,4 @@ export async function signInWithGoogle() {
 
     return { error: error.message || "Google sign-in failed" };
   }
-}
+};

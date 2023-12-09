@@ -1,15 +1,18 @@
 import { useEffect, useState, useCallback } from "react";
 import { useSelector } from "react-redux";
-import { getServerAddressList } from "../../api/api";
+import { getServerAddressList } from "../../apis/user";
 import ServerAddressForm from "./ServerAddressForm";
+import { useNavigate } from "react-router-dom";
+import { goToDashboard } from "../../utils/navigation";
 
 function ServerAddressList() {
   const userId = useSelector((state) => state.user.id);
   const token = useSelector((state) => state.user.token);
-  const [serverAddresses, setServerAddresses] = useState([]);
+  const navigate = useNavigate();
+
   const [loading, setLoading] = useState(true);
-  const [isLoaded, setIsLoaded] = useState(false);
   const [error, setError] = useState(null);
+  const [serverAddresses, setServerAddresses] = useState([]);
 
   const loadServerAddresses = useCallback(async () => {
     if (!userId) {
@@ -25,7 +28,6 @@ function ServerAddressList() {
     if (result.error) {
       setError(result.error);
       setLoading(false);
-      setIsLoaded(true);
 
       return;
     }
@@ -33,7 +35,6 @@ function ServerAddressList() {
     setServerAddresses(result);
     setError(null);
     setLoading(false);
-    setIsLoaded(true);
   }, [userId, token]);
 
   useEffect(() => {
@@ -46,14 +47,16 @@ function ServerAddressList() {
   return (
     <div>
       <h1>Server List</h1>
-      {!loading && isLoaded && serverAddresses.length === 0 ? (
+      {!loading && serverAddresses.length === 0 ? (
         <div>No servers available. Add a new server address!</div>
       ) : (
         serverAddresses.map((item) => (
           <div key={item.id}>
             {item.address}
             {item.isApproved ? (
-              <button onClick={() => {}}>Go to Dashboard</button>
+              <button onClick={() => goToDashboard(navigate, item.address)}>
+                Go to Dashboard
+              </button>
             ) : (
               <span>Approval Pending...</span>
             )}

@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useSelector } from "react-redux";
-import { addServerAddress } from "../../api/api";
+import { addServerAddress } from "../../apis/user";
 import PropTypes from "prop-types";
 
 function ServerAddressForm({ onAddAddress }) {
