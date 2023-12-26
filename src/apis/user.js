@@ -1,4 +1,4 @@
-import { callApi } from "../utils/api";
+import { callApi } from "@/utils/api";
 const API_BASE_URL = import.meta.env.VITE_BACKEND_URL;
 
 const API_PATHS = {

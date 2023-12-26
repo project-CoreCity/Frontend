@@ -1,5 +1,5 @@
 import { useLocation, useNavigate } from "react-router-dom";
-import { goBackToHome } from "../utils/navigation";
+import { goBackToHome } from "@/utils/navigation";
 
 function Error() {
   const location = useLocation();

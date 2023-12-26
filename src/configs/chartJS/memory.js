@@ -49,7 +49,7 @@ export const memoryConfig = () => {
                 label += ": ";
               }
 
-              label += `${context.parsed.y} GB`;
+              label += `${context.parsed.y} %`;
 
               return label;
             },

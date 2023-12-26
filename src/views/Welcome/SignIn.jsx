@@ -1,9 +1,9 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { signInWithGoogle } from "../../utils/auth";
 import { useDispatch } from "react-redux";
-import { setUser } from "../../features/user/userSlice";
-import { authenticateUser } from "../../apis/user";
+import { signInWithGoogle } from "@/utils/auth";
+import { authenticateUser } from "@/apis/user";
+import { setUser } from "@/features/user/userSlice";
 
 function SignIn() {
   const navigate = useNavigate();

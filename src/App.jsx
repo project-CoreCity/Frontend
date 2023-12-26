@@ -1,14 +1,14 @@
 import { useEffect } from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { getAuth } from "firebase/auth";
-import app from "./config/firebaseConfig";
+import app from "@/configs/firebaseConfig";
 import { useDispatch } from "react-redux";
-import { clearUser, setUser } from "./features/user/userSlice";
-import { getUserInformation } from "./apis/user";
-import Welcome from "./views/welcome/Welcome";
-import ServerList from "./views/server-list/ServerAddressList";
-import Dashboard from "./views/dashboard/dashboard";
-import Error from "./views/Error";
+import { clearUser, setUser } from "@/features/user/userSlice";
+import { getUserInformation } from "@/apis/user";
+import Welcome from "@/views/welcome/Welcome";
+import ServerList from "@/views/server-list/ServerAddressList";
+import Dashboard from "@/views/dashboard/Dashboard";
+import Error from "@/views/Error";
 
 function App() {
   const auth = getAuth(app);
