@@ -1,5 +1,5 @@
 import { getAuth, signInWithPopup, GoogleAuthProvider } from "firebase/auth";
-import app from "../config/firebaseConfig";
+import app from "@/configs/firebaseConfig";
 
 const auth = getAuth(app);
 const provider = new GoogleAuthProvider();

@@ -1,7 +1,7 @@
+import PropTypes from "prop-types";
 import { useState } from "react";
 import { useSelector } from "react-redux";
-import { addServerAddress } from "../../apis/user";
-import PropTypes from "prop-types";
+import { addServerAddress } from "@/apis/user";
 
 function ServerAddressForm({ onAddAddress }) {
   const userId = useSelector((state) => state.user.id);

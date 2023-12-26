@@ -1,9 +1,9 @@
 import { useEffect, useState, useCallback } from "react";
-import { useSelector } from "react-redux";
-import { getServerAddressList } from "../../apis/user";
-import ServerAddressForm from "./ServerAddressForm";
 import { useNavigate } from "react-router-dom";
-import { goToDashboard } from "../../utils/navigation";
+import { useSelector } from "react-redux";
+import { getServerAddressList } from "@/apis/user";
+import { goToDashboard } from "@/utils/navigation";
+import ServerAddressForm from "./ServerAddressForm";
 
 function ServerAddressList() {
   const userId = useSelector((state) => state.user.id);
