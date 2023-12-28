@@ -1,4 +1,9 @@
-import { getAuth, signInWithPopup, GoogleAuthProvider } from "firebase/auth";
+import {
+  getAuth,
+  signInWithPopup,
+  GoogleAuthProvider,
+  signOut,
+} from "firebase/auth";
 import app from "@/configs/firebaseConfig";
 
 const auth = getAuth(app);
@@ -14,5 +19,15 @@ export const signInWithGoogle = async () => {
     console.error(error);
 
     return { error: error.message || "Google sign-in failed" };
+  }
+};
+
+export const signOutWithGoogle = async () => {
+  try {
+    await signOut(auth);
+  } catch (error) {
+    console.error(error);
+
+    throw new Error(error.message || "Sign-out failed");
   }
 };

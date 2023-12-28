@@ -1,7 +1,7 @@
 import PropTypes from "prop-types";
 import { useEffect, useRef } from "react";
 import useAnimation from "@/hooks/useAnimation";
-import { handleResize } from "@/utils/handlers";
+import { handleResize } from "@/utils/threeJS/handlers";
 import {
   initializeScene,
   initializeCamera,
