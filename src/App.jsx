@@ -5,6 +5,7 @@ import app from "@/configs/firebaseConfig";
 import { useDispatch } from "react-redux";
 import { clearUser, setUser } from "@/features/user/userSlice";
 import { getUserInformation } from "@/apis/user";
+import Header from "@/views/header/Header";
 import Welcome from "@/views/welcome/Welcome";
 import ServerList from "@/views/server-list/ServerAddressList";
 import Dashboard from "@/views/dashboard/Dashboard";
@@ -47,6 +48,7 @@ function App() {
 
   return (
     <Router>
+      <Header />
       <Routes>
         <Route path="/" element={<Welcome />} />
         <Route path="/server-addresses" element={<ServerList />} />

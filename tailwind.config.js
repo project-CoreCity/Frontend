@@ -2,7 +2,14 @@
 export default {
   content: ["./index.html", "./src/**/*.{js,ts,jsx,tsx}"],
   theme: {
-    extend: {},
+    extend: {
+      height: {
+        "screen-minus-header": "calc(100vh - 4rem)",
+      },
+      fontFamily: {
+        figtree: ["Figtree", "sans-serif"],
+      },
+    },
   },
   plugins: [],
 };
