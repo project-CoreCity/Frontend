@@ -1,7 +1,3 @@
-export const goBackToHome = (navigate) => {
+export const goToHome = (navigate) => {
   navigate("/");
-};
-
-export const goToDashboard = (navigate, address) => {
-  navigate("/dashboard", { state: { address: address } });
 };
