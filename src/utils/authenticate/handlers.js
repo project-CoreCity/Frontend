@@ -3,23 +3,19 @@ import {
   signOutWithGoogle,
 } from "@/utils/authenticate/googleAuth";
 import { authenticateUser } from "@/apis/user";
-import { setUser, clearUser } from "@/features/user/userSlice";
+import { setUser, clearUser } from "@/features/user/slice";
 
-export const handleSignIn = async (dispatch, navigate, setError) => {
-  setError(null);
-
+export const handleSignIn = async (dispatch, navigate) => {
   const googleSignInResult = await signInWithGoogle();
 
   if (googleSignInResult.error) {
-    setError(googleSignInResult.error);
-
-    return;
+    navigate("/error", { state: { error: googleSignInResult.error } });
   }
 
   const authenticateResult = await authenticateUser(googleSignInResult.token);
 
   if (authenticateResult.error) {
-    setError(authenticateResult.error);
+    navigate("/error", { state: { error: authenticateResult.error } });
 
     return;
   }
@@ -37,16 +33,10 @@ export const handleSignIn = async (dispatch, navigate, setError) => {
   navigate("/server-addresses");
 };
 
-export const handleSignOut = async (dispatch, navigate, setError) => {
-  setError(null);
+export const handleSignOut = async (dispatch, navigate) => {
+  await signOutWithGoogle();
 
-  try {
-    await signOutWithGoogle();
+  dispatch(clearUser());
 
-    dispatch(clearUser());
-
-    navigate("/");
-  } catch (error) {
-    setError(error.message);
-  }
+  navigate("/");
 };

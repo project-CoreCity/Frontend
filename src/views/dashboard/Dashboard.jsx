@@ -1,8 +1,8 @@
 import { useEffect } from "react";
 import { useLocation } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
+import { setMonitorData } from "@/features/monitor/slice";
 import useSocket from "@/hooks/useSocket";
-import { setMonitorData } from "@/features/monitor/monitorSlice";
 import ChartPanel from "./chart/ChartPanel";
 import VisualPanel from "./visual/VisualPanel";
 

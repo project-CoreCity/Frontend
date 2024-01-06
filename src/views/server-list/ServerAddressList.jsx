@@ -1,14 +1,12 @@
 import { useEffect, useState, useCallback } from "react";
-import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { getServerAddressList } from "@/apis/user";
-import { goToDashboard } from "@/utils/navigation";
 import ServerAddressForm from "./ServerAddressForm";
+import DashboardButton from "@/components/buttons/DashboardButton";
 
 function ServerAddressList() {
   const userId = useSelector((state) => state.user.id);
   const token = useSelector((state) => state.user.token);
-  const navigate = useNavigate();
 
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -54,9 +52,11 @@ function ServerAddressList() {
           <div key={item.id}>
             {item.address}
             {item.isApproved ? (
-              <button onClick={() => goToDashboard(navigate, item.address)}>
-                Go to Dashboard
-              </button>
+              <DashboardButton
+                address={item.address}
+                text="Go to Dashboard"
+                css="text-white cursor-pointer"
+              />
             ) : (
               <span>Approval Pending...</span>
             )}
