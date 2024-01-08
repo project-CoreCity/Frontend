@@ -18,7 +18,15 @@ function Dashboard() {
     if (data) {
       dispatch(setMonitorData(data));
     }
-  }, [dispatch, data]);
+
+    if (error) {
+      dispatch(setMonitorData(null));
+    }
+
+    return () => {
+      dispatch(setMonitorData(null));
+    };
+  }, [data, error, dispatch]);
 
   if (error) {
     return (
