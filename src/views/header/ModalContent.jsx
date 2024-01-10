@@ -1,7 +1,6 @@
 import PropTypes from "prop-types";
 import { useRef, useEffect, useState } from "react";
-import { handleClickOutside } from "@/utils/modal/handlers";
-import { handleKeyDown } from "@/utils/modal/handlers";
+import { handleClickOutside, handleKeyDown } from "@/utils/modal/handlers";
 import { useSelector } from "react-redux";
 import AuthenticationButton from "@/components/buttons/AuthenticationButton";
 import NavigationButton from "@/components/buttons/NavigationButton";
@@ -11,14 +10,22 @@ import RequestList from "./RequestList";
 
 function ModalContent({ onClose, triggerRef }) {
   const modalRef = useRef();
+  const firstElementRef = useRef();
+  const lastElementRef = useRef();
   const userInfo = useSelector((state) => state.user);
   const [isVisible, setIsVisible] = useState(false);
 
   useEffect(() => {
+    firstElementRef.current?.focus();
+
     setIsVisible(true);
 
     const mouseEventHandler = handleClickOutside(triggerRef, modalRef, onClose);
-    const keyEventHandler = handleKeyDown(onClose);
+    const keyEventHandler = handleKeyDown(
+      onClose,
+      firstElementRef,
+      lastElementRef,
+    );
 
     document.addEventListener("mousedown", mouseEventHandler);
     document.addEventListener("keydown", keyEventHandler);
@@ -29,7 +36,7 @@ function ModalContent({ onClose, triggerRef }) {
 
       setIsVisible(false);
     };
-  }, [onClose, triggerRef, modalRef]);
+  }, [onClose, triggerRef, modalRef, firstElementRef, lastElementRef]);
 
   const modalClass = `absolute w-1/4 top-16 right-0 bg-black/25 rounded-3xl text-white transition-opacity duration-500 ease-in-out ${
     isVisible ? "opacity-100" : "opacity-0"
@@ -37,6 +44,15 @@ function ModalContent({ onClose, triggerRef }) {
 
   return (
     <div ref={modalRef} className={modalClass}>
+      <button
+        ref={firstElementRef}
+        className="absolute p-3 top-0 right-0 rounded-full hover:bg-white/20"
+        aria-label="Close user menu button"
+        onClick={onClose}
+      >
+        {closeIcon}
+      </button>
+
       <div className="flex justify-center my-5 text-xl">{userInfo.email}</div>
 
       <div className="flex justify-center">
@@ -49,22 +65,18 @@ function ModalContent({ onClose, triggerRef }) {
           title="Server list"
           icon={listIcon}
           css="flex items-center justify-center px-3 py-3 rounded-md bg-gradient-to-r from-blue-500 to-cyan-500 hover:from-blue-300 hover:to-cyan-300 text-lg font-medium text-[#0000BA]"
+          ariaLabel="Server list view button"
         />
 
         <AuthenticationButton
+          ref={lastElementRef}
           handler={handleSignOut}
           title="Sign out"
           icon={signOutIcon}
           css="flex items-center justify-center px-3 py-3 rounded-md bg-gradient-to-r from-cyan-500 to-blue-500 hover:from-cyan-300 hover:to-blue-300 text-lg font-medium text-[#0000BA]"
+          ariaLabel="Sign out button"
         />
       </div>
-
-      <button
-        className="absolute p-3 top-0 right-0 rounded-full hover:bg-white/20"
-        onClick={onClose}
-      >
-        {closeIcon}
-      </button>
     </div>
   );
 }

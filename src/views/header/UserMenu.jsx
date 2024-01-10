@@ -17,21 +17,26 @@ function UserMenu() {
 
   return (
     <>
-      <div className="relative">
+      <button
+        className="relative p-1 rounded-full hover:bg-white/20"
+        aria-label={`Open user menu, there ${
+          requests && requests.length !== 1
+            ? `are ${requests.length} new notifications`
+            : "is a new notification"
+        }`}
+        ref={buttonRef}
+        onClick={() => {
+          setShowModal((prevShowModal) => !prevShowModal);
+        }}
+      >
         {requests && requests.length !== 0 && (
-          <div className="absolute text-xs text-[#FF6915] rounded-full">●</div>
+          <div className="absolute right-11 top-0 text-[#FF6915] rounded-full">
+            ●
+          </div>
         )}
+        {userIcon}
+      </button>
 
-        <button
-          className="p-1 rounded-full hover:bg-white/20"
-          ref={buttonRef}
-          onClick={() => {
-            setShowModal((prevShowModal) => !prevShowModal);
-          }}
-        >
-          {userIcon}
-        </button>
-      </div>
       {showModal &&
         createPortal(
           <ModalContent
