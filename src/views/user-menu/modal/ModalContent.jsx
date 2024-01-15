@@ -53,9 +53,11 @@ function ModalContent({ onClose, triggerRef }) {
         {closeIcon}
       </button>
 
-      <div className="flex justify-center my-5 text-xl">{userInfo.email}</div>
+      <div className="flex justify-center my-5 text-normal">
+        {userInfo.email}
+      </div>
 
-      <div className="flex justify-center">
+      <div className="w-full">
         <RequestList />
       </div>
 

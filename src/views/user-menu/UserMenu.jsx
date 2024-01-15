@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { createPortal } from "react-dom";
 import { useSelector } from "react-redux";
-import ModalContent from "./ModalContent";
+import ModalContent from "./modal/ModalContent";
 import { userIcon } from "@/assets/svgIcons";
 import { useLocation } from "react-router-dom";
 

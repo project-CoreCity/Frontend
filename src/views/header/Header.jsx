@@ -1,6 +1,6 @@
 import { useSelector } from "react-redux";
 import AuthenticationButton from "@/components/buttons/AuthenticationButton";
-import UserMenu from "./UserMenu";
+import UserMenu from "@/views/user-menu/UserMenu";
 import { handleSignIn } from "@/utils/authenticate/handlers";
 
 function Header() {

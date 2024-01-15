@@ -9,6 +9,9 @@ export default {
       fontFamily: {
         figtree: ["Figtree", "sans-serif"],
       },
+      transitionDuration: {
+        height: "height",
+      },
     },
   },
   plugins: [],
