@@ -7,6 +7,7 @@ import NavigationButton from "@/components/buttons/NavigationButton";
 import { handleSignOut } from "@/utils/authenticate/handlers";
 import { closeIcon, signOutIcon, listIcon } from "@/assets/svgIcons";
 import RequestList from "./RequestList";
+import useLoadPendingRequests from "@/hooks/useLoadPendingRequests";
 
 function ModalContent({ onClose, triggerRef }) {
   const modalRef = useRef();
@@ -14,6 +15,8 @@ function ModalContent({ onClose, triggerRef }) {
   const lastElementRef = useRef();
   const userInfo = useSelector((state) => state.user);
   const [isVisible, setIsVisible] = useState(false);
+
+  useLoadPendingRequests();
 
   useEffect(() => {
     firstElementRef.current?.focus();

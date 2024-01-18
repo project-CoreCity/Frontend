@@ -9,6 +9,10 @@ const API_PATHS = {
     `${API_BASE_URL}/api/v1/admin/users?address=${encodeURIComponent(
       serverAddress,
     )}&` + userIds.map((id) => `userId=${id}`).join(`&`),
+  allowAccessRequest: (serverAddress, userId) =>
+    `${API_BASE_URL}/api/v1/admin/users/${userId}?address=${encodeURIComponent(
+      serverAddress,
+    )}`,
 };
 
 export const getPendingRequests = async (addressIds, token) => {
@@ -34,4 +38,20 @@ export const getAccessRequestUserList = async (
       },
     },
   );
+};
+
+export const allowAccessRequest = async (
+  serverAddress,
+  userId,
+  isApproved,
+  token,
+) => {
+  return await callApi(API_PATHS.allowAccessRequest(serverAddress, userId), {
+    method: "PATCH",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${token}`,
+    },
+    body: JSON.stringify({ isApproved }),
+  });
 };

@@ -6,7 +6,10 @@ import { userIcon } from "@/assets/svgIcons";
 import { useLocation } from "react-router-dom";
 
 function UserMenu() {
-  const requests = useSelector((state) => state.pendingRequests.requests.data);
+  const allRequestsByAddress = useSelector(
+    (state) => state.pendingRequests.requests,
+  );
+
   const [showModal, setShowModal] = useState(false);
   const buttonRef = useRef();
   const location = useLocation();
@@ -15,21 +18,38 @@ function UserMenu() {
     setShowModal(false);
   }, [location]);
 
+  const totalRequestsCount = allRequestsByAddress.data
+    ? allRequestsByAddress.data.reduce(
+        (total, requestByAddress) => total + requestByAddress.requests.length,
+        0,
+      )
+    : 0;
+
+  const hasRequests =
+    allRequestsByAddress.data &&
+    allRequestsByAddress.data.some(
+      (requestByAddress) => requestByAddress.requests.length > 0,
+    );
+
   return (
     <>
       <button
         className="relative p-1 rounded-full hover:bg-white/20"
-        aria-label={`Open user menu, there ${
-          requests && requests.length !== 1
-            ? `are ${requests.length} new notifications`
-            : "is a new notification"
+        aria-label={`Open user menu, ${
+          hasRequests
+            ? `${
+                totalRequestsCount === 1
+                  ? `${totalRequestsCount} new notification`
+                  : `${totalRequestsCount} new notifications`
+              }`
+            : "no new notification"
         }`}
         ref={buttonRef}
         onClick={() => {
           setShowModal((prevShowModal) => !prevShowModal);
         }}
       >
-        {requests && requests.length !== 0 && (
+        {hasRequests && (
           <div className="absolute right-11 top-0 text-[#FF6915] rounded-full">
             ●
           </div>

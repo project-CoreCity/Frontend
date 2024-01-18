@@ -32,57 +32,52 @@ function RequestList() {
               ? "Approval Requests"
               : "Approval Request"}
           </div>
-          {allRequestsByAddress.data.length === 0 ? (
-            <p>
-              {
-                "It's crickets over here! Not a single access request has buzzed into the server I'm managing."
-              }
-            </p>
-          ) : (
-            <div>
-              {allRequestsByAddress.data.map((requestsByAddress) => (
-                <div
-                  className="mt-2 py-3 bg-white/10 text-sm hover:bg-white/25"
-                  key={requestsByAddress.address}
-                >
-                  <DashboardButton
-                    address={requestsByAddress.address}
-                    text={requestsByAddress.address}
-                    css="flex justify-center mb-2 text-base font-bold cursor-pointer hover:text-white/75 hover:underline"
-                  />
-                  {requestsByAddress.requests.length === 0 ? (
-                    <p className="text-center">No approval requests.</p>
-                  ) : (
-                    <>
-                      <div className="text-center">
-                        <span className="font-bold text-[#FF6915]">
-                          {requestsByAddress.requests.length !== 1
-                            ? `${requestsByAddress.requests.length} Approval requests`
-                            : `Approval request`}
-                        </span>
-                        {` have arrived on your server dashboard.`}
-                      </div>
-                      <div
-                        className="flex justify-center my-2 cursor-pointer"
-                        onClick={() => {
-                          handleSeeMoreClick(requestsByAddress.address);
-                        }}
-                      >
-                        {showComponent[requestsByAddress.address]
-                          ? seeLessIcon
-                          : seeMoreIcon}
-                      </div>
+
+          <div>
+            {allRequestsByAddress.data.map((requestsByAddress) => (
+              <div
+                className="grid grid-row-4 mt-2 py-3 bg-white/10 text-sm hover:bg-white/25"
+                key={requestsByAddress.address}
+              >
+                <DashboardButton
+                  address={requestsByAddress.address}
+                  text={requestsByAddress.address}
+                  css="flex justify-center mb-2 text-base font-bold cursor-pointer hover:text-white/75 hover:underline"
+                />
+                {requestsByAddress.requests.length === 0 ? (
+                  <p className="text-center">{`No approval requests here :)`}</p>
+                ) : (
+                  <>
+                    <div className="text-center">
+                      <span className="font-bold text-[#FF6915]">
+                        {requestsByAddress.requests.length !== 1
+                          ? `${requestsByAddress.requests.length} Approval requests`
+                          : `Approval request`}
+                      </span>
+                      {` have arrived on your server dashboard.`}
+                    </div>
+                    <button
+                      className="flex justify-center my-2"
+                      onClick={() => {
+                        handleSeeMoreClick(requestsByAddress.address);
+                      }}
+                    >
+                      {showComponent[requestsByAddress.address]
+                        ? seeLessIcon
+                        : seeMoreIcon}
+                    </button>
+                    {showComponent[requestsByAddress.address] && (
                       <RequestDetail
                         requestData={requestsByAddress.requests}
                         targetAddress={requestsByAddress.address}
                         showContents={showComponent[requestsByAddress.address]}
                       />
-                    </>
-                  )}
-                </div>
-              ))}
-            </div>
-          )}
+                    )}
+                  </>
+                )}
+              </div>
+            ))}
+          </div>
         </>
       ) : (
         <p className="flex justify-center my-2 text-sm">
