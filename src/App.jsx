@@ -5,11 +5,11 @@ import ServerList from "@/views/server-list/ServerAddressList";
 import Dashboard from "@/views/dashboard/Dashboard";
 import Error from "@/views/Error";
 import useAuthState from "@/hooks/useAuthState";
-import useLoadPendingRequests from "@/hooks/useLoadPendingRequests";
+import useLoadApprovalRequestServerList from "@/hooks/useLoadApprovalRequestServerList";
 
 function App() {
   useAuthState();
-  useLoadPendingRequests();
+  useLoadApprovalRequestServerList();
 
   return (
     <Router>

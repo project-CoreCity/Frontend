@@ -2,7 +2,7 @@ import PropTypes from "prop-types";
 import { useCallback } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 
-function NavigationButton({ path, title, css, icon }) {
+function NavigationButton({ path, title, css, icon, ariaLabel }) {
   const navigate = useNavigate();
   const location = useLocation();
 
@@ -16,7 +16,7 @@ function NavigationButton({ path, title, css, icon }) {
 
   return (
     <div>
-      <button className={css} onClick={handleNavigation}>
+      <button className={css} aria-label={ariaLabel} onClick={handleNavigation}>
         {icon}
         {title}
       </button>
@@ -29,6 +29,7 @@ NavigationButton.propTypes = {
   title: PropTypes.string.isRequired,
   css: PropTypes.string.isRequired,
   icon: PropTypes.node,
+  ariaLabel: PropTypes.string.isRequired,
 };
 
 export default NavigationButton;

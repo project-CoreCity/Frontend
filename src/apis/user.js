@@ -3,7 +3,7 @@ const API_BASE_URL = import.meta.env.VITE_BACKEND_URL;
 
 const API_PATHS = {
   authenticateUser: `${API_BASE_URL}/api/v1/users/auth-token`,
-  getUserInformation: (uid) => `${API_BASE_URL}/api/v1/users/${uid}`,
+  getUserInformation: `${API_BASE_URL}/api/v1/users`,
   getServerAddressList: (userId) =>
     `${API_BASE_URL}/api/v1/users/${userId}/server-addresses`,
   addServerAddress: (userId) =>
@@ -20,8 +20,8 @@ export const authenticateUser = async (token) => {
   });
 };
 
-export const getUserInformation = async (uid, token) => {
-  return await callApi(API_PATHS.getUserInformation(uid), {
+export const getUserInformation = async (token) => {
+  return await callApi(API_PATHS.getUserInformation, {
     method: "GET",
     headers: {
       Authorization: `Bearer ${token}`,

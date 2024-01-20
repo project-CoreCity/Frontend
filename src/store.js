@@ -1,16 +1,16 @@
 import { configureStore } from "@reduxjs/toolkit";
 import userReducer from "@/features/user/slice";
 import monitorReducer from "@/features/monitor/slice";
-import pendingRequestsReducer from "@/features/pending-requests/slice";
-import pendingRequestsFetchStatusReducer from "@/features/pending-requests/fetchStatusSlice";
-import userRoleReducer from "@/features/user-role/slice";
+import approvalRequestServerListReducer from "@/features/approval-request/slice";
+import approvalRequestFetchStatusReducer from "@/features/approval-request/fetchStatusSlice";
+import userRoleReduser from "@/features/user-role/slice";
 
 export const store = configureStore({
   reducer: {
     user: userReducer,
     monitor: monitorReducer,
-    pendingRequests: pendingRequestsReducer,
-    pendingRequestsFetchStatus: pendingRequestsFetchStatusReducer,
-    userRole: userRoleReducer,
+    approvalRequestServerList: approvalRequestServerListReducer,
+    approvalRequestFetchStatus: approvalRequestFetchStatusReducer,
+    userRole: userRoleReduser,
   },
 });

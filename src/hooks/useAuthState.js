@@ -18,7 +18,7 @@ const useAuthState = () => {
       }
 
       const token = await user.getIdToken();
-      const result = await getUserInformation(user.uid, token);
+      const result = await getUserInformation(token);
 
       if (result.error) {
         console.error(result.error);

@@ -10,10 +10,30 @@ export const handleClickOutside = (triggerRef, modalRef, onClose) => {
   };
 };
 
-export const handleKeyDown = (onClose) => {
+export const handleKeyDown = (onClose, firstElementRef, lastElementRef) => {
   return (event) => {
     if (event.key === "Escape") {
       onClose();
+    }
+
+    if (event.key === "Tab") {
+      if (
+        !event.shiftKey &&
+        document.activeElement === lastElementRef.current
+      ) {
+        event.preventDefault();
+
+        firstElementRef.current?.focus();
+      }
+
+      if (
+        event.shiftKey &&
+        document.activeElement === firstElementRef.current
+      ) {
+        event.preventDefault();
+
+        lastElementRef.current?.focus();
+      }
     }
   };
 };
