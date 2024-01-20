@@ -50,9 +50,10 @@ function UserMenu() {
         }}
       >
         {hasRequests && (
-          <div className="absolute right-11 top-0 text-[#FF6915] rounded-full">
-            ●
-          </div>
+          <span className="absolute flex">
+            <span className="absolute inline-flex h-full w-full right-2 top-0 bg-[#FF6915] rounded-full animate-ping"></span>
+            <span className="relative inline-flex h-3 w-3 right-2 top-0 bg-[#FF6915] rounded-full"></span>
+          </span>
         )}
         {userIcon}
       </button>
