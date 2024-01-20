@@ -1,7 +1,7 @@
 import * as THREE from "three";
 
 export const objectColors = {
-  backgroundColor: 0x0000ba,
+  backgroundColor: 0x293137,
   networkTransmitCarColor: 0xff73a2,
   networkReceiveCarColor: 0x48e3ff,
   diskReadCylinderColor: 0x5bff80,

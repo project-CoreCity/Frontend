@@ -107,10 +107,10 @@ export const initializeRenderer = (ref) => {
 };
 
 export const addLightsToScene = (scene) => {
-  const ambientLight = new THREE.AmbientLight(0x1017ff, 1.5);
+  const ambientLight = new THREE.AmbientLight(0x1017ff, 2.5);
   const sunLight = new THREE.DirectionalLight(0xffffff, 2);
   const cyanLight = new THREE.PointLight(0x00f0ff, 300, 20);
-  const coralLight = new THREE.PointLight(0xff7375, 300, 20);
+  const coralLight = new THREE.PointLight(0xff6915, 300, 30);
 
   sunLight.position.set(5, 10, 10);
   sunLight.castShadow = true;
