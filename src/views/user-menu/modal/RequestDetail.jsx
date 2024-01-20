@@ -1,34 +1,36 @@
 import PropTypes from "prop-types";
 import { useSelector } from "react-redux";
 import { useCallback, useEffect, useState } from "react";
-import { getAccessRequestUserList } from "@/apis/adminUser";
+import { getApprovalRequestUserList } from "@/apis/adminUser";
 import ApprovalStatusButton from "@/components/buttons/ApprovalStatusButton";
 
 function RequestDetail({ requestData, targetAddress, showContents }) {
   const token = useSelector((state) => state.user.token);
 
-  const [requestResult, setRequestResult] = useState(null);
+  const [approvalRequestUserList, setApprovalRequestUserList] = useState(null);
 
-  const loadRequestUserList = useCallback(async () => {
+  const loadApprovalRequestUserList = useCallback(async () => {
     const requestUserIds = requestData.map(
       (requestUserData) => requestUserData.userId,
     );
 
-    const result = await getAccessRequestUserList(
+    const responseApprovalRequestUserList = await getApprovalRequestUserList(
       targetAddress,
       requestUserIds,
       token,
     );
 
-    setRequestResult(result);
+    setApprovalRequestUserList(responseApprovalRequestUserList);
   }, [requestData]);
 
   useEffect(() => {
-    loadRequestUserList();
-  }, [loadRequestUserList]);
+    loadApprovalRequestUserList();
+  }, [loadApprovalRequestUserList]);
 
   const wrapperStyle = {
-    height: showContents ? `${requestResult?.userList.length * 3.5}rem` : "0",
+    height: showContents
+      ? `${approvalRequestUserList?.data.length * 3.5}rem`
+      : "0",
   };
 
   return (
@@ -36,8 +38,8 @@ function RequestDetail({ requestData, targetAddress, showContents }) {
       className="flex flex-col justify-center overflow-hidden gap-5"
       style={wrapperStyle}
     >
-      {requestResult !== null &&
-        requestResult.userList.map((user) => (
+      {approvalRequestUserList !== null &&
+        approvalRequestUserList.data.map((user) => (
           <div
             key={user.name}
             className="flex items-center justify-between gap-5 px-5"
@@ -59,6 +61,9 @@ function RequestDetail({ requestData, targetAddress, showContents }) {
               <ApprovalStatusButton
                 title="Deny"
                 css="px-2 w-14 h-7 font-bold bg-[#FF6915] rounded-md"
+                serverAddress={targetAddress}
+                userId={user.id}
+                isApproved={false}
               />
             </div>
           </div>

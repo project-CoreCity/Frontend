@@ -6,8 +6,8 @@ import { userIcon } from "@/assets/svgIcons";
 import { useLocation } from "react-router-dom";
 
 function UserMenu() {
-  const allRequestsByAddress = useSelector(
-    (state) => state.pendingRequests.requests,
+  const approvalRequestServerList = useSelector(
+    (state) => state.approvalRequestServerList.serverList,
   );
 
   const [showModal, setShowModal] = useState(false);
@@ -18,17 +18,17 @@ function UserMenu() {
     setShowModal(false);
   }, [location]);
 
-  const totalRequestsCount = allRequestsByAddress.data
-    ? allRequestsByAddress.data.reduce(
-        (total, requestByAddress) => total + requestByAddress.requests.length,
+  const totalApprovalRequests = approvalRequestServerList.data
+    ? approvalRequestServerList.data.reduce(
+        (total, server) => total + server.requestList.length,
         0,
       )
     : 0;
 
   const hasRequests =
-    allRequestsByAddress.data &&
-    allRequestsByAddress.data.some(
-      (requestByAddress) => requestByAddress.requests.length > 0,
+    approvalRequestServerList.data &&
+    approvalRequestServerList.data.some(
+      (server) => server.requestList.length > 0,
     );
 
   return (
@@ -38,9 +38,9 @@ function UserMenu() {
         aria-label={`Open user menu, ${
           hasRequests
             ? `${
-                totalRequestsCount === 1
-                  ? `${totalRequestsCount} new notification`
-                  : `${totalRequestsCount} new notifications`
+                totalApprovalRequests === 1
+                  ? `${totalApprovalRequests} new notification`
+                  : `${totalApprovalRequests} new notifications`
               }`
             : "no new notification"
         }`}

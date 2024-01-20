@@ -6,13 +6,13 @@ import { useState } from "react";
 
 function RequestList() {
   const isAdminUser = useSelector((state) => state.userRole.isAdmin);
-  const allRequestsByAddress = useSelector(
-    (state) => state.pendingRequests.requests,
+  const approvalRequestServerList = useSelector(
+    (state) => state.approvalRequestServerList.serverList,
   );
   const loading = useSelector(
-    (state) => state.pendingRequestsFetchStatus.loading,
+    (state) => state.approvalRequestFetchStatus.loading,
   );
-  const error = useSelector((state) => state.pendingRequestsFetchStatus.error);
+  const error = useSelector((state) => state.approvalRequestFetchStatus.error);
 
   const [showComponent, setShowComponent] = useState(false);
 
@@ -20,38 +20,38 @@ function RequestList() {
     setShowComponent((prev) => ({ ...prev, [address]: !prev[address] }));
   };
 
-  if (loading) return <div>Loading...</div>;
-  if (error) return <div>Error: {error}</div>;
+  if (loading) return <div className="flex justify-center">Loading...</div>;
+  if (error) return <div className="flex justify-center">Error: {error}</div>;
 
   return (
     <div>
       {isAdminUser === true ? (
         <>
           <div className="flex my-6 justify-center text-2xl">
-            {allRequestsByAddress.data.length !== 1
+            {approvalRequestServerList.data.length !== 1
               ? "Approval Requests"
               : "Approval Request"}
           </div>
 
           <div>
-            {allRequestsByAddress.data.map((requestsByAddress) => (
+            {approvalRequestServerList.data.map((server) => (
               <div
                 className="grid grid-row-4 mt-2 py-3 bg-white/10 text-sm hover:bg-white/25"
-                key={requestsByAddress.address}
+                key={server.address}
               >
                 <DashboardButton
-                  address={requestsByAddress.address}
-                  text={requestsByAddress.address}
+                  address={server.address}
+                  text={server.address}
                   css="flex justify-center mb-2 text-base font-bold cursor-pointer hover:text-white/75 hover:underline"
                 />
-                {requestsByAddress.requests.length === 0 ? (
+                {server.requestList.length === 0 ? (
                   <p className="text-center">{`No approval requests here :)`}</p>
                 ) : (
                   <>
                     <div className="text-center">
                       <span className="font-bold text-[#FF6915]">
-                        {requestsByAddress.requests.length !== 1
-                          ? `${requestsByAddress.requests.length} Approval requests`
+                        {server.requestList.length !== 1
+                          ? `${server.requestList.length} Approval requests`
                           : `Approval request`}
                       </span>
                       {` have arrived on your server dashboard.`}
@@ -59,18 +59,18 @@ function RequestList() {
                     <button
                       className="flex justify-center my-2"
                       onClick={() => {
-                        handleSeeMoreClick(requestsByAddress.address);
+                        handleSeeMoreClick(server.address);
                       }}
                     >
-                      {showComponent[requestsByAddress.address]
+                      {showComponent[server.address]
                         ? seeLessIcon
                         : seeMoreIcon}
                     </button>
-                    {showComponent[requestsByAddress.address] && (
+                    {showComponent[server.address] && (
                       <RequestDetail
-                        requestData={requestsByAddress.requests}
-                        targetAddress={requestsByAddress.address}
-                        showContents={showComponent[requestsByAddress.address]}
+                        requestData={server.requestList}
+                        targetAddress={server.address}
+                        showContents={showComponent[server.address]}
                       />
                     )}
                   </>
