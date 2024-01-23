@@ -1,6 +1,7 @@
 import PropTypes from "prop-types";
 import { useCallback } from "react";
 import { useNavigate } from "react-router-dom";
+import { chevronRightIcon } from "@/assets/svgIcons";
 
 function DashboardButton({ address, text, css }) {
   const navigate = useNavigate();
@@ -12,9 +13,10 @@ function DashboardButton({ address, text, css }) {
   }, [navigate, address]);
 
   return (
-    <span className={css} onClick={handleNavigation}>
+    <button className={css} onClick={handleNavigation}>
       {text}
-    </span>
+      {chevronRightIcon}
+    </button>
   );
 }
 

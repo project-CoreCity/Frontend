@@ -43,27 +43,53 @@ function ServerAddressList() {
   if (error) return <div>Error: {error}</div>;
 
   return (
-    <div>
-      <h1>Server List</h1>
-      {!loading && serverAddresses.length === 0 ? (
-        <div>No servers available. Add a new server address!</div>
-      ) : (
-        serverAddresses.map((item) => (
-          <div key={item.id}>
-            {item.address}
-            {item.isApproved ? (
-              <DashboardButton
-                address={item.address}
-                text="Go to Dashboard"
-                css="text-white cursor-pointer"
-              />
-            ) : (
-              <span>Approval Pending...</span>
-            )}
-          </div>
-        ))
-      )}
-      <ServerAddressForm onAddAddress={loadServerAddresses} />
+    <div className="flex flex-col items-center justify-center h-screen-minus-header">
+      <h2 className="font-figtree items-center h-[100px] text-[80px] text-white">
+        Core City
+      </h2>
+
+      <p className="mt-5 text-xl text-white">
+        {`Plant your server address for monitoring,
+        and watch a splendid village grow!`}
+      </p>
+
+      <div className="flex flex-col mx-auto relative">
+        <ServerAddressForm onAddAddress={loadServerAddresses} />
+        {!loading && serverAddresses.length === 0 ? (
+          ""
+        ) : (
+          <>
+            <div className="pt-7 h-[200px] border-t-2 border-[#d9d9d9] overflow-scroll">
+              {serverAddresses.map((item) => (
+                <div
+                  key={item.id}
+                  className={`flex items-center flex-row mb-3 ${
+                    !item.isApproved ? "text-[#999]" : "text-white"
+                  }`}
+                >
+                  <span className="mr-8 w-[160px] text-[16px]">
+                    {item.address}
+                  </span>
+
+                  {item.isApproved ? (
+                    <DashboardButton
+                      address={item.address}
+                      text="Dashboard"
+                      css="flex items-center py-1 px-2 bg-[#34c759] hover:bg-[#6ed989] text-[13px] text-white font-bold rounded-md cursor-pointer"
+                    />
+                  ) : (
+                    <span className="py-1 px-2 border-[#e8eaee] bg-[#f1f3f6] text-[13px] text-[#999999] font-bold rounded-md cursor-not-allowed">
+                      Requested
+                    </span>
+                  )}
+                </div>
+              ))}
+              <div className="h-[25px]"></div>
+            </div>
+            <div className="absolute bottom-0 left-0 right-0 h-[200px] bg-gradient-to-b from-transparent from-70% to-[#293137] pointer-events-none"></div>
+          </>
+        )}
+      </div>
     </div>
   );
 }

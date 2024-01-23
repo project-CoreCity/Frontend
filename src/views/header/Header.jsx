@@ -2,12 +2,21 @@ import { useSelector } from "react-redux";
 import AuthenticationButton from "@/components/buttons/AuthenticationButton";
 import UserMenu from "@/views/user-menu/UserMenu";
 import { handleSignIn } from "@/utils/authenticate/handlers";
+import { Link, useLocation } from "react-router-dom";
 
 function Header() {
   const isAuthenticated = useSelector((state) => state.user.isAuthenticated);
+  const location = useLocation();
+  const backgroundColor =
+    location.pathname === "/" ? "bg-[#0000BA]" : "bg-[#293137]";
 
   return (
-    <div className="flex items-center justify-end h-16">
+    <div
+      className={`flex items-center justify-between h-16 ${backgroundColor}`}
+    >
+      <Link to="/">
+        <h1 className="mx-3 font-figtree text-white text-3xl">Core City</h1>
+      </Link>
       {isAuthenticated === null ? (
         ""
       ) : isAuthenticated ? (

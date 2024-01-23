@@ -37,7 +37,7 @@ function Dashboard() {
   }
 
   return (
-    <div className="h-screen grid grid-cols-2">
+    <div className="grid grid-cols-2 h-screen-minus-header">
       <ChartPanel data={monitorData} />
       <VisualPanel data={monitorData} />
     </div>
