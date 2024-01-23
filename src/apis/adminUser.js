@@ -5,14 +5,11 @@ const API_PATHS = {
   getApprovalRequestServerList: (addressIds) =>
     `${API_BASE_URL}/api/v1/admin/server-addresses/requests?` +
     addressIds.map((id) => `id=${id}`).join(`&`),
-  getApprovalRequestUserList: (serverAddress, userIds) =>
-    `${API_BASE_URL}/api/v1/admin/users?address=${encodeURIComponent(
-      serverAddress,
-    )}&` + userIds.map((id) => `userId=${id}`).join(`&`),
-  approvalRequest: (serverAddress, userId) =>
-    `${API_BASE_URL}/api/v1/admin/users/${userId}?address=${encodeURIComponent(
-      serverAddress,
-    )}`,
+  getApprovalRequestUserList: (addressId, userIds) =>
+    `${API_BASE_URL}/api/v1/admin/server-addresses/${addressId}/users/requests?` +
+    userIds.map((id) => `userId=${id}`).join(`&`),
+  approvalRequest: (addressId, userId) =>
+    `${API_BASE_URL}/api/v1/admin/server-addresses/${addressId}/requests/${userId}`,
 };
 
 export const getApprovalRequestServerList = async (addressIds, token) => {
@@ -24,13 +21,9 @@ export const getApprovalRequestServerList = async (addressIds, token) => {
   });
 };
 
-export const getApprovalRequestUserList = async (
-  serverAddress,
-  userIds,
-  token,
-) => {
+export const getApprovalRequestUserList = async (addressId, userIds, token) => {
   return await callApi(
-    API_PATHS.getApprovalRequestUserList(serverAddress, userIds),
+    API_PATHS.getApprovalRequestUserList(addressId, userIds),
     {
       method: "GET",
       headers: {
@@ -41,12 +34,12 @@ export const getApprovalRequestUserList = async (
 };
 
 export const allowApprovalRequest = async (
-  serverAddress,
+  addressId,
   userId,
   isApproved,
   token,
 ) => {
-  return await callApi(API_PATHS.approvalRequest(serverAddress, userId), {
+  return await callApi(API_PATHS.approvalRequest(addressId, userId), {
     method: "PATCH",
     headers: {
       "Content-Type": "application/json",
@@ -56,8 +49,8 @@ export const allowApprovalRequest = async (
   });
 };
 
-export const denyApprovalRequest = async (serverAddress, userId, token) => {
-  return await callApi(API_PATHS.approvalRequest(serverAddress, userId), {
+export const denyApprovalRequest = async (addressId, userId, token) => {
+  return await callApi(API_PATHS.approvalRequest(addressId, userId), {
     method: "DELETE",
     headers: {
       Authorization: `Bearer ${token}`,
