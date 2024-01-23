@@ -5,13 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { allowApprovalRequest, denyApprovalRequest } from "@/apis/adminUser";
 import { loadApprovalRequestServerList } from "@/utils/approval-request/apiRequest";
 
-function ApprovalStatusButton({
-  title,
-  css,
-  serverAddress,
-  userId,
-  isApproved,
-}) {
+function ApprovalStatusButton({ title, css, addressId, userId, isApproved }) {
   const adminUserId = useSelector((state) => state.user.id);
   const token = useSelector((state) => state.user.token);
   const dispatch = useDispatch();
@@ -21,12 +15,12 @@ function ApprovalStatusButton({
     loadApprovalRequestServerList(adminUserId, token, dispatch);
   }, [adminUserId, token, dispatch]);
 
-  const handleAllowRequest = async () => {
+  const handleApprovalRequest = async () => {
     try {
       const response =
         isApproved === true
-          ? await allowApprovalRequest(serverAddress, userId, isApproved, token)
-          : await denyApprovalRequest(serverAddress, userId, token);
+          ? await allowApprovalRequest(addressId, userId, isApproved, token)
+          : await denyApprovalRequest(addressId, userId, token);
 
       if (response.status === "Success") {
         refreshApprovalRequestServerList();
@@ -43,7 +37,7 @@ function ApprovalStatusButton({
   };
 
   return (
-    <button className={css} onClick={handleAllowRequest}>
+    <button className={css} onClick={handleApprovalRequest}>
       {title}
     </button>
   );
@@ -52,7 +46,7 @@ function ApprovalStatusButton({
 ApprovalStatusButton.propTypes = {
   title: PropTypes.string.isRequired,
   css: PropTypes.string.isRequired,
-  serverAddress: PropTypes.string,
+  addressId: PropTypes.string,
   userId: PropTypes.string,
   isApproved: PropTypes.bool,
 };
