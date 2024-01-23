@@ -24,7 +24,7 @@ function RequestList() {
   if (error) return <div className="flex justify-center">Error: {error}</div>;
 
   return (
-    <div>
+    <div className="relative">
       {isAdminUser === true ? (
         <>
           <div className="flex my-6 justify-center text-2xl">
@@ -33,16 +33,21 @@ function RequestList() {
               : "Approval Request"}
           </div>
 
-          <div>
+          <div
+            className={
+              approvalRequestServerList.data.length >= 6 &&
+              `h-[500px] overflow-scroll`
+            }
+          >
             {approvalRequestServerList.data.map((server) => (
               <div
-                className="grid grid-row-4 mt-2 py-3 bg-white/10 text-sm hover:bg-white/25"
+                className="flex flex-col mt-2 py-3 bg-white/10 text-sm hover:bg-white/25"
                 key={server.address}
               >
                 <DashboardButton
                   address={server.address}
                   text={server.address}
-                  css="flex justify-center mb-2 text-base font-bold cursor-pointer hover:text-white/75 hover:underline"
+                  css="flex items-center justify-center mb-2 text-base font-bold hover:text-white/75 hover:underline"
                 />
                 {server.requestList.length === 0 ? (
                   <p className="text-center">{`No approval requests here :)`}</p>
@@ -77,6 +82,9 @@ function RequestList() {
                 )}
               </div>
             ))}
+            {approvalRequestServerList.data.length >= 6 && (
+              <div className="absolute bottom-0 left-0 right-0 h-[200px] bg-gradient-to-b from-transparent from-70% to-[#293137] pointer-events-none"></div>
+            )}
           </div>
         </>
       ) : (

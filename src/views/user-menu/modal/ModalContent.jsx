@@ -41,7 +41,7 @@ function ModalContent({ onClose, triggerRef }) {
     };
   }, [onClose, triggerRef, modalRef, firstElementRef, lastElementRef]);
 
-  const modalClass = `absolute w-1/4 top-16 right-0 bg-black/25 rounded-3xl text-white transition-opacity duration-500 ease-in-out ${
+  const modalClass = `absolute w-1/4 top-16 right-5 bg-black/25 rounded-3xl text-white transition-opacity duration-500 ease-in-out ${
     isVisible ? "opacity-100" : "opacity-0"
   }`;
 
@@ -69,7 +69,7 @@ function ModalContent({ onClose, triggerRef }) {
           path={"/server-addresses"}
           title="Server list"
           icon={listIcon}
-          css="flex items-center justify-center px-3 py-3 rounded-md bg-gradient-to-r from-blue-500 to-cyan-500 hover:from-blue-300 hover:to-cyan-300 text-lg font-medium text-[#0000BA]"
+          css="flex items-center justify-center px-3 py-2 rounded-md bg-gradient-to-r from-blue-500 to-cyan-500 hover:from-blue-300 hover:to-cyan-300 font-medium text-[#0000BA]"
           ariaLabel="Server list view button"
         />
 
@@ -78,7 +78,7 @@ function ModalContent({ onClose, triggerRef }) {
           handler={handleSignOut}
           title="Sign out"
           icon={signOutIcon}
-          css="flex items-center justify-center px-3 py-3 rounded-md bg-gradient-to-r from-cyan-500 to-blue-500 hover:from-cyan-300 hover:to-blue-300 text-lg font-medium text-[#0000BA]"
+          css="flex items-center justify-center px-3 py-2 rounded-md bg-gradient-to-r from-cyan-500 to-blue-500 hover:from-cyan-300 hover:to-blue-300 font-medium text-[#0000BA]"
           ariaLabel="Sign out button"
         />
       </div>

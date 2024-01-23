@@ -44,7 +44,9 @@ function ServerAddressList() {
 
   return (
     <div className="flex flex-col items-center justify-center h-screen-minus-header">
-      <h2 className="font-figtree text-[80px] text-white">Core City</h2>
+      <h2 className="font-figtree items-center h-[100px] text-[80px] text-white">
+        Core City
+      </h2>
 
       <p className="mt-5 text-xl text-white">
         {`Plant your server address for monitoring,
