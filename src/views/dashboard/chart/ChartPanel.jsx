@@ -1,13 +1,28 @@
 import PropTypes from "prop-types";
+import { useEffect, useState } from "react";
+import { useLocation } from "react-router-dom";
 import { memoryConfig } from "@/configs/chartJS/memory";
 import { networkConfig } from "@/configs/chartJS/network";
 import { diskConfig } from "@/configs/chartJS/disk";
 import SystemOverview from "./SystemOverview";
 import BaseChart from "./BaseChart";
 
-function ChartPanel({ data }) {
+function ChartPanel({ initialData }) {
+  const [data, setData] = useState(initialData);
+  const location = useLocation();
+  const serverAddress = location.state?.address;
+
+  useEffect(() => {
+    setData(null);
+  }, [location]);
+
+  useEffect(() => {
+    setData(initialData);
+  }, [initialData]);
+
   return (
-    <div className="flex items-center justify-center">
+    <div className="flex flex-col items-center justify-center">
+      <h2 className="mb-10 text-xl text-white">{serverAddress}</h2>
       <div className="grid grid-cols-9 gap-4 w-5/6 text-center text-white">
         <SystemOverview
           title={"CPU"}
@@ -86,7 +101,7 @@ function ChartPanel({ data }) {
 }
 
 ChartPanel.propTypes = {
-  data: PropTypes.object,
+  initialData: PropTypes.object,
 };
 
 export default ChartPanel;
