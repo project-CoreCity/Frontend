@@ -1,5 +1,6 @@
 import PropTypes from "prop-types";
 import { useEffect, useRef } from "react";
+import { useLocation } from "react-router-dom";
 import useAnimation from "@/hooks/useAnimation";
 import { handleResize } from "@/utils/threeJS/handlers";
 import {
@@ -18,6 +19,7 @@ import { createBuilding } from "@/utils/threeJS/cpuBuildings";
 import useVisualUpdates from "@/hooks/useVisualUpdates";
 
 function VisualPanel({ data }) {
+  const location = useLocation();
   const sceneRef = useRef(null);
   const mountRef = useRef(null);
   const rendererRef = useRef(null);
@@ -95,7 +97,7 @@ function VisualPanel({ data }) {
         false,
       );
     };
-  }, []);
+  }, [location]);
 
   useVisualUpdates(data, refs);
 
