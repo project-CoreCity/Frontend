@@ -14,22 +14,8 @@ import {
   objectPositionsAndSizes,
   objectColors,
 } from "@/utils/threeJS/objectStyles";
-import {
-  createBuilding,
-  adjustBuildingHeight,
-} from "@/utils/threeJS/cpuBuildings";
-import {
-  determinateNumberOfCircles,
-  adjustCircleQuantity,
-} from "@/utils/threeJS/memoryCircles";
-import {
-  determineNumberOfCars,
-  adjustCarQuantity,
-} from "@/utils/threeJS/networkCars";
-import {
-  determinateNumberOfCylinders,
-  adjustCylinderQuantity,
-} from "@/utils/threeJS/diskCylinders";
+import { createBuilding } from "@/utils/threeJS/cpuBuildings";
+import useVisualUpdates from "@/hooks/useVisualUpdates";
 
 function VisualPanel({ data }) {
   const sceneRef = useRef(null);
@@ -44,6 +30,21 @@ function VisualPanel({ data }) {
   const networkTransmitCarsRef = useRef([]);
   const diskReadCylindersRef = useRef([]);
   const diskWriteCylindersRef = useRef([]);
+
+  const refs = {
+    sceneRef: sceneRef,
+    mountRef: mountRef,
+    rendererRef: rendererRef,
+    cameraRef: cameraRef,
+    cpuUsageTotalBuildingRef: cpuUsageTotalBuildingRef,
+    cpuUsageUserBuildingRef: cpuUsageUserBuildingRef,
+    cpuUsageSystemBuildingRef: cpuUsageSystemBuildingRef,
+    memoryUsageCirclesRef: memoryUsageCirclesRef,
+    networkReceiveCarsRef: networkReceiveCarsRef,
+    networkTransmitCarsRef: networkTransmitCarsRef,
+    diskReadCylindersRef: diskReadCylindersRef,
+    diskWriteCylindersRef: diskWriteCylindersRef,
+  };
 
   useEffect(() => {
     const scene = initializeScene(objectColors.backgroundColor);
@@ -96,80 +97,9 @@ function VisualPanel({ data }) {
     };
   }, []);
 
-  useEffect(() => {
-    if (data) {
-      const numberOfMemoryUsageCircles = determinateNumberOfCircles(
-        data.memoryMetrics.mainDisplay,
-      );
-      const numberOfCars = determineNumberOfCars(
-        data.networkMetrics.mainDisplay,
-      );
-      const numberOfDiskReadCylinders = determinateNumberOfCylinders(
-        data.diskMetrics.mainDisplay[0],
-      );
-      const numberOfdiskWriteCylinders = determinateNumberOfCylinders(
-        data.diskMetrics.mainDisplay[1],
-      );
+  useVisualUpdates(data, refs);
 
-      adjustBuildingHeight(
-        cpuUsageTotalBuildingRef,
-        data.cpuMetrics.mainDisplay,
-      );
-      adjustBuildingHeight(
-        cpuUsageUserBuildingRef,
-        data.cpuMetrics.cpuUsageUser,
-      );
-      adjustBuildingHeight(
-        cpuUsageSystemBuildingRef,
-        data.cpuMetrics.cpuUsageSystem,
-      );
-
-      adjustCircleQuantity(
-        sceneRef.current,
-        numberOfMemoryUsageCircles,
-        memoryUsageCirclesRef,
-      );
-
-      adjustCarQuantity(
-        sceneRef.current,
-        numberOfCars.transmit,
-        networkTransmitCarsRef,
-        objectColors.networkTransmitCarColor,
-      );
-      adjustCarQuantity(
-        sceneRef.current,
-        numberOfCars.receive,
-        networkReceiveCarsRef,
-        objectColors.networkReceiveCarColor,
-      );
-
-      adjustCylinderQuantity(
-        sceneRef.current,
-        numberOfDiskReadCylinders,
-        diskReadCylindersRef,
-        objectPositionsAndSizes.diskReadCylinder.position,
-        objectColors.diskReadCylinderColor,
-      );
-      adjustCylinderQuantity(
-        sceneRef.current,
-        numberOfdiskWriteCylinders,
-        diskWriteCylindersRef,
-        objectPositionsAndSizes.diskWriteCylinder.position,
-        objectColors.diskWriteCylinderColor,
-      );
-    }
-  }, [data]);
-
-  useAnimation(
-    cameraRef,
-    networkReceiveCarsRef,
-    networkTransmitCarsRef,
-    diskReadCylindersRef,
-    diskWriteCylindersRef,
-    memoryUsageCirclesRef,
-    rendererRef,
-    sceneRef,
-  );
+  useAnimation(refs);
 
   return (
     <div className="flex items-center justify-center">
