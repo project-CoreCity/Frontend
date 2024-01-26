@@ -11,7 +11,7 @@ const dummyBuildings = [
   },
   {
     position: new THREE.Vector3(1, 4, 3.5),
-    size: new THREE.Vector3(1, 1, 1),
+    size: new THREE.Vector3(1, 4, 1),
   },
   {
     position: new THREE.Vector3(3, 3, 2),
