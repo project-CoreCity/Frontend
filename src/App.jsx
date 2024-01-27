@@ -9,6 +9,7 @@ import useLoadApprovalRequestServerList from "@/hooks/useLoadApprovalRequestServ
 
 function App() {
   useAuthState();
+
   useLoadApprovalRequestServerList();
 
   return (
