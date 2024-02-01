@@ -35,28 +35,29 @@ function RequestList() {
 
           <div
             className={
-              approvalRequestServerList.data.length >= 6 &&
-              `h-[500px] overflow-scroll`
+              approvalRequestServerList.data.length >= 6
+                ? `h-[500px] overflow-scroll`
+                : ""
             }
           >
-            {approvalRequestServerList.data.map((server) => (
+            {approvalRequestServerList.data.map((requestServer) => (
               <div
                 className="flex flex-col mt-2 py-3 bg-white/10 text-sm hover:bg-white/25"
-                key={server.address}
+                key={requestServer.address}
               >
                 <DashboardButton
-                  address={server.address}
-                  text={server.address}
+                  address={requestServer.address}
+                  text={requestServer.address}
                   css="flex items-center justify-center mb-2 text-base font-bold hover:text-white/75 hover:underline"
                 />
-                {server.requestList.length === 0 ? (
+                {requestServer.requestList.length === 0 ? (
                   <p className="text-center">{`No approval requests here :)`}</p>
                 ) : (
                   <>
                     <div className="text-center">
                       <span className="font-bold text-[#FF6915]">
-                        {server.requestList.length !== 1
-                          ? `${server.requestList.length} Approval requests`
+                        {requestServer.requestList.length !== 1
+                          ? `${requestServer.requestList.length} Approval requests`
                           : `Approval request`}
                       </span>
                       {` have arrived on your server dashboard.`}
@@ -64,18 +65,18 @@ function RequestList() {
                     <button
                       className="flex justify-center my-2"
                       onClick={() => {
-                        handleSeeMoreClick(server.address);
+                        handleSeeMoreClick(requestServer.address);
                       }}
                     >
-                      {showComponent[server.address]
+                      {showComponent[requestServer.address]
                         ? seeLessIcon
                         : seeMoreIcon}
                     </button>
-                    {showComponent[server.address] && (
+                    {showComponent[requestServer.address] && (
                       <RequestDetail
-                        requestData={server.requestList}
-                        targetAddress={server.address}
-                        showContents={showComponent[server.address]}
+                        requestData={requestServer.requestList}
+                        targetAddressId={requestServer.addressId}
+                        showContents={showComponent[requestServer.address]}
                       />
                     )}
                   </>

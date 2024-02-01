@@ -11,8 +11,8 @@ function Dashboard() {
   const serverAddress = location.state?.address;
   const dispatch = useDispatch();
   const token = useSelector((state) => state.user.token);
-  const { data, error } = useSocket(serverAddress, token);
   const monitorData = useSelector((state) => state.monitor.data);
+  const { data, error } = useSocket(serverAddress, token);
 
   useEffect(() => {
     if (data) {
@@ -38,7 +38,7 @@ function Dashboard() {
 
   return (
     <div className="grid grid-cols-2 h-screen-minus-header">
-      <ChartPanel data={monitorData} />
+      <ChartPanel initialData={monitorData} />
       <VisualPanel data={monitorData} />
     </div>
   );

@@ -4,18 +4,16 @@ import { useCallback, useEffect, useState } from "react";
 import { getApprovalRequestUserList } from "@/apis/adminUser";
 import ApprovalStatusButton from "@/components/buttons/ApprovalStatusButton";
 
-function RequestDetail({ requestData, targetAddress, showContents }) {
+function RequestDetail({ requestData, targetAddressId, showContents }) {
   const token = useSelector((state) => state.user.token);
-
   const [approvalRequestUserList, setApprovalRequestUserList] = useState(null);
-
   const loadApprovalRequestUserList = useCallback(async () => {
     const requestUserIds = requestData.map(
       (requestUserData) => requestUserData.userId,
     );
 
     const responseApprovalRequestUserList = await getApprovalRequestUserList(
-      targetAddress,
+      targetAddressId,
       requestUserIds,
       token,
     );
@@ -39,13 +37,13 @@ function RequestDetail({ requestData, targetAddress, showContents }) {
       style={wrapperStyle}
     >
       {approvalRequestUserList !== null &&
-        approvalRequestUserList.data.map((user) => (
+        approvalRequestUserList.data.map((requestUser) => (
           <div
-            key={user.name}
+            key={requestUser.name}
             className="flex items-center justify-between gap-5 px-5"
           >
             <div>
-              <span className="font-bold">{user.name}</span>
+              <span className="font-bold">{requestUser.name}</span>
               {` has sent you a request.`}
             </div>
 
@@ -53,16 +51,16 @@ function RequestDetail({ requestData, targetAddress, showContents }) {
               <ApprovalStatusButton
                 title="Allow"
                 css="px-2 w-14 h-7 font-bold bg-[#FF6915] rounded-md"
-                serverAddress={targetAddress}
-                userId={user.id}
+                addressId={requestUser.addressId}
+                userId={requestUser.id}
                 isApproved={true}
               />
 
               <ApprovalStatusButton
                 title="Deny"
                 css="px-2 w-14 h-7 font-bold bg-[#FF6915] rounded-md"
-                serverAddress={targetAddress}
-                userId={user.id}
+                addressId={requestUser.addressId}
+                userId={requestUser.id}
                 isApproved={false}
               />
             </div>
@@ -74,7 +72,7 @@ function RequestDetail({ requestData, targetAddress, showContents }) {
 
 RequestDetail.propTypes = {
   requestData: PropTypes.array.isRequired,
-  targetAddress: PropTypes.string.isRequired,
+  targetAddressId: PropTypes.string.isRequired,
   showContents: PropTypes.bool,
 };
 
