@@ -53,7 +53,7 @@ function ServerAddressList() {
         and watch a splendid village grow!`}
       </p>
 
-      <div className="flex flex-col mx-auto relative">
+      <div className="flex flex-col items-center mx-auto relative">
         <ServerAddressForm onAddAddress={loadServerAddresses} />
         {!loading && serverAddresses.length === 0 ? (
           ""
@@ -67,7 +67,7 @@ function ServerAddressList() {
                     !item.isApproved ? "text-[#999]" : "text-white"
                   }`}
                 >
-                  <span className="mr-8 w-[160px] text-[16px]">
+                  <span className="mr-8 w-[200px] text-[16px]">
                     {item.address}
                   </span>
 
