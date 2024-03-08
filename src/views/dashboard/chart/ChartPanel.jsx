@@ -22,7 +22,9 @@ function ChartPanel({ initialData }) {
 
   return (
     <div className="flex flex-col items-center justify-center">
-      <h2 className="mb-10 text-xl text-white">{serverAddress}</h2>
+      <h2 className="mb-10 text-xl text-white">
+        {serverAddress === "guestMode" ? "Guest Mode" : serverAddress}
+      </h2>
       <div className="grid grid-cols-9 gap-4 w-5/6 text-center text-white">
         <SystemOverview
           title={"CPU"}
