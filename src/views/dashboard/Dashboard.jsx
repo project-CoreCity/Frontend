@@ -49,17 +49,22 @@ function Dashboard() {
 
   if (error) {
     return (
-      <div className="flex items-center justify-center w-screen h-screen text-center text-2xl text-white whitespace-pre-line">
-        {error}
-      </div>
+      <main>
+        <div className="flex items-center justify-center w-screen h-screen text-center text-2xl text-white whitespace-pre-line">
+          {error}
+        </div>
+      </main>
     );
   }
 
   return (
-    <div className="grid grid-cols-2 h-screen-minus-header">
-      <ChartPanel initialData={monitorData} />
-      <VisualPanel data={monitorData} />
-    </div>
+    <main>
+      <div className="grid grid-cols-2 h-screen-minus-header">
+        <ChartPanel initialData={monitorData} />
+
+        <VisualPanel data={monitorData} />
+      </div>
+    </main>
   );
 }
 
