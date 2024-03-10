@@ -4,6 +4,7 @@ function SystemOverview({ title, children, detail1, detail2, additionalCss }) {
   const containerClasses = additionalCss
     ? `${additionalCss} rounded-3xl bg-black/25`
     : "rounded-3xl bg-black/25";
+  const detailsCss = `mini:px-1 mini:py-3 mini:bg-transparent mini:font-semibold px-4 py-3 flex-none bg-black rounded-3xl`;
 
   return (
     <div className={containerClasses}>
@@ -12,14 +13,14 @@ function SystemOverview({ title, children, detail1, detail2, additionalCss }) {
 
         {children}
 
-        <div className="py-4 flex gap-2 text-xs">
+        <div className="mini:py-0 py-4 flex gap-2 text-xs">
           <div className="flex-1"></div>
 
-          <div className="px-4 py-3 flex-none bg-black rounded-3xl">
+          <div className={detailsCss}>
             <span>&#9679; {detail1}</span>
           </div>
 
-          <div className="px-4 py-3 flex-none bg-black rounded-3xl">
+          <div className={detailsCss}>
             <span>&#9679; {detail2}</span>
           </div>
 

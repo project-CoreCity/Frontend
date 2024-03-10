@@ -59,7 +59,7 @@ function Dashboard() {
 
   return (
     <main>
-      <div className="grid grid-cols-2 h-screen-minus-header">
+      <div className="mini:flex mini:flex-col-reverse mini:h-fit grid grid-cols-2 h-screen-minus-header">
         <ChartPanel initialData={monitorData} />
 
         <VisualPanel data={monitorData} />
