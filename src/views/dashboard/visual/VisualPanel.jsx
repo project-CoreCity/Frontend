@@ -104,9 +104,9 @@ function VisualPanel({ data }) {
   useAnimation(refs);
 
   return (
-    <div className="flex items-center justify-center">
+    <section className="flex items-center justify-center">
       <div className="w-5/6" ref={mountRef}></div>
-    </div>
+    </section>
   );
 }
 

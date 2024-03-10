@@ -43,7 +43,7 @@ function ServerAddressList() {
   if (error) return <div>Error: {error}</div>;
 
   return (
-    <div className="flex flex-col items-center justify-center h-screen-minus-header">
+    <main className="flex flex-col items-center justify-center h-screen-minus-header">
       <h2 className="font-figtree items-center h-[100px] text-[80px] text-white">
         Core City
       </h2>
@@ -84,13 +84,15 @@ function ServerAddressList() {
                   )}
                 </div>
               ))}
+
               <div className="h-[25px]"></div>
             </div>
+
             <div className="absolute bottom-0 left-0 right-0 h-[200px] bg-gradient-to-b from-transparent from-70% to-[#293137] pointer-events-none"></div>
           </>
         )}
       </div>
-    </div>
+    </main>
   );
 }
 
