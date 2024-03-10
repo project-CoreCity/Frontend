@@ -42,7 +42,7 @@ function RequestList() {
           >
             {approvalRequestServerList.data.map((requestServer) => (
               <div
-                className="flex flex-col mt-2 py-3 bg-white/10 text-sm hover:bg-white/25"
+                className="flex flex-col mt-2 py-3 bg-white/10 mini:bg-white/5 text-sm hover:bg-white/25 mini:hover:bg-white/5"
                 key={requestServer.address}
               >
                 <DashboardButton

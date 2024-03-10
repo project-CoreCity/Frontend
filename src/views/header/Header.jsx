@@ -19,7 +19,9 @@ function Header() {
         className={`flex items-center justify-between h-16 ${backgroundColor}`}
       >
         <Link to="/">
-          <h1 className="mx-3 font-figtree text-white text-3xl">Core City</h1>
+          <h1 className="mx-3 font-figtree text-white text-3xl mini:hidden">
+            Core City
+          </h1>
         </Link>
         {isAuthenticated === null ? (
           ""
@@ -45,7 +47,7 @@ function Header() {
             <AuthenticationButton
               handler={handleSignIn}
               title="Sign in"
-              css="mx-3 w-28 h-10 rounded-md bg-gradient-to-r from-cyan-500 to-blue-500 hover:from-cyan-300 hover:to-blue-300 text-md text-[#0000BA]"
+              css="mx-3 w-28 mini:w-20 h-10 rounded-md bg-gradient-to-r from-cyan-500 to-blue-500 hover:from-cyan-300 hover:to-blue-300 text-md font-medium text-[#0000BA]"
               ariaLabel="Sign in button"
             />
           </div>

@@ -44,11 +44,11 @@ function ServerAddressList() {
 
   return (
     <main className="flex flex-col items-center justify-center h-screen-minus-header">
-      <h2 className="font-figtree items-center h-[100px] text-[80px] text-white">
+      <h2 className="font-figtree items-center h-[100px] mini:h-[70px] text-[80px] text-white mini:text-[50px]">
         Core City
       </h2>
 
-      <p className="mt-5 text-xl text-white">
+      <p className="mt-5 mini:px-5 text-xl mini:text-base text-white mini:text-center">
         {`Plant your server address for monitoring,
         and watch a splendid village grow!`}
       </p>

@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import { createPortal } from "react-dom";
 import { useSelector } from "react-redux";
 import ModalContent from "./modal/ModalContent";
-import { userIcon } from "@/assets/svgIcons";
+import { userIcon, hamburgerIcon } from "@/assets/svgIcons";
 import { useLocation } from "react-router-dom";
 
 function UserMenu() {
@@ -11,8 +11,19 @@ function UserMenu() {
   );
 
   const [showModal, setShowModal] = useState(false);
+  const [windowWidth, setWindowWidth] = useState(window.innerWidth);
   const buttonRef = useRef();
   const location = useLocation();
+
+  useEffect(() => {
+    const handleResize = () => {
+      setWindowWidth(window.innerWidth);
+    };
+
+    window.addEventListener("resize", handleResize);
+
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
 
   useEffect(() => {
     setShowModal(false);
@@ -30,6 +41,8 @@ function UserMenu() {
     approvalRequestServerList.data.some(
       (server) => server.requestList.length > 0,
     );
+
+  const icon = windowWidth <= 1000 ? hamburgerIcon : userIcon;
 
   return (
     <>
@@ -55,7 +68,7 @@ function UserMenu() {
             <span className="relative inline-flex h-3 w-3 right-2 top-0 bg-[#FF6915] rounded-full"></span>
           </span>
         )}
-        {userIcon}
+        {icon}
       </button>
 
       {showModal &&
