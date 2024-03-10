@@ -21,12 +21,12 @@ function ChartPanel({ initialData }) {
   }, [initialData]);
 
   return (
-    <section className="flex flex-col items-center justify-center">
-      <h2 className="mb-10 text-xl text-white">
+    <section className="flex flex-col items-center justify-center mini:mb-5">
+      <h2 className="mini:my-5  mb-10 text-xl text-white">
         {serverAddress === "guestMode" ? "Guest Mode" : serverAddress}
       </h2>
 
-      <div className="grid grid-cols-9 gap-4 w-5/6 text-center text-white">
+      <div className="grid grid-cols-9 gap-4 w-5/6 text-center text-white mini:flex mini:flex-col">
         <SystemOverview
           title={"CPU"}
           detail1={

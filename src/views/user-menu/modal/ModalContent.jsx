@@ -15,8 +15,19 @@ function ModalContent({ onClose, triggerRef }) {
   const lastElementRef = useRef();
   const userInfo = useSelector((state) => state.user);
   const [isVisible, setIsVisible] = useState(false);
+  const [windowWidth, setWindowWidth] = useState(window.innerWidth);
 
   useLoadApprovalRequestServerList();
+
+  useEffect(() => {
+    const handleResize = () => {
+      setWindowWidth(window.innerWidth);
+    };
+
+    window.addEventListener("resize", handleResize);
+
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
 
   useEffect(() => {
     firstElementRef.current?.focus();
@@ -41,20 +52,24 @@ function ModalContent({ onClose, triggerRef }) {
     };
   }, [onClose, triggerRef, modalRef, firstElementRef, lastElementRef]);
 
-  const modalClass = `absolute w-1/4 top-16 right-5 bg-black/25 rounded-3xl text-white transition-opacity duration-500 ease-in-out ${
+  const modalClass = `absolute w-1/4 mini:w-3/4 mini:h-screen top-16 mini:top-0 right-5 mini:right-0 bg-black/25 mini:bg-[#1B2024] rounded-3xl mini:rounded-none text-white transition-opacity duration-500 ease-in-out ${
     isVisible ? "opacity-100" : "opacity-0"
   }`;
 
   return (
     <div ref={modalRef} className={modalClass}>
-      <button
-        ref={firstElementRef}
-        className="absolute p-3 top-0 right-0 rounded-full hover:bg-white/20"
-        aria-label="Close user menu button"
-        onClick={onClose}
-      >
-        {closeIcon}
-      </button>
+      {windowWidth <= 1000 ? (
+        ""
+      ) : (
+        <button
+          ref={firstElementRef}
+          className="absolute p-3 top-0 right-0 rounded-full hover:bg-white/20"
+          aria-label="Close user menu button"
+          onClick={onClose}
+        >
+          {closeIcon}
+        </button>
+      )}
 
       <div className="flex justify-center my-5 text-normal">
         {userInfo.email}
