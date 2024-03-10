@@ -100,6 +100,7 @@ export const initializeRenderer = (ref) => {
   renderer.setSize(size, size);
   renderer.shadowMap.enabled = true;
   renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+  renderer.setPixelRatio(window.devicePixelRatio);
 
   ref.current.appendChild(renderer.domElement);
 
